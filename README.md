@@ -1,18 +1,7 @@
 
 
 
-
-
-
-##### Haskell Basics
-
-
-+ variable
-    + not mutable boxes, just names for values
-    + `=` is definition rather than assignments
-+ function application 
-    + `app` binds tighter than any binary operator, i.e. evaluated first
-+ guard 
-    + evaluated in order, 
-+ infix operator 
-    + by putting backtick 1 `mod` 2
+[CIS194 2013](http://www.seas.upenn.edu/~cis194/spring13/lectures.html)
+[CIS194 2016](http://www.seas.upenn.edu/~cis194/fall16/)
+[CS240 functional system](http://www.scs.stanford.edu/16wi-cs240h/)
+[data61](https://github.com/data61/fp-course)
