@@ -36,9 +36,15 @@ sum' (x:l) = x + sum' l
 
 -- name@pattern: `name` has bound value matching `pattern`
 
--- guards: 
+capital :: String -> String
+capital "" = "Empty String!"
+capital all@(x:xs) = "first letter of " ++ all ++ " is " ++ [x]
+
+-- guards: `|` (pipe)
+--      * make sure a value conform to some form and destructuring it
 --      * cases evaluated in order, integrates well with pattern
 --      * `otherwise = True`
+--      * glorified if-else statement in essence
 
 myCompare :: (Ord a) => a -> a -> Ordering 
 a `myCompare` b 
@@ -53,7 +59,13 @@ bmiTell weight height
     | bmi <= fat    = "You're fat! Lose some weight, fatty!"  
     | otherwise     = "You're a whale, congratulations!"  
     where   bmi = weight / height ^ 2  
-            (skinny, normal, fat) = (18.5, 25.0, 30.0)  -- pattern in binding
+            (skinny, normal, fat) = (18.5, 25.0, 30.0) 
+            -- pattern in binding, defines a local lambda visible to all guards
+
+
+calcBmis :: (RealFloat a) => [(a, a)] -> [a]
+calcBmis xs = [bmi w h | (w, h) <- xs]  
+    where bmi weight height = weight / height ^ 2
 
 {-
     where: 
@@ -95,3 +107,7 @@ cylinder r h =
 head'' :: [a] -> a  
 head'' xs = case xs of []    -> error "No head for empty lists!"  
                        (x:_) -> x  
+
+-- equiv to 
+head''' [] = error " No head for empty list!"
+head''' (x:_) = x
