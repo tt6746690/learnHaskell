@@ -7,6 +7,7 @@ maximum' [] = error "maximum of empty list"
 maximum' [x] = x 
 maximum' (x:xs) = max x (maximum' xs)
 
+-- replicate 3 5   =>  [5 5 5]
 -- specify i as Ord and Num because need to do `<=` and `-` 
 replicate' :: (Ord i, Num i) => i -> a -> [a]
 replicate' n x
@@ -20,6 +21,11 @@ take' n _
 take' _ []      = [] 
 take' n (x:xs)  = x : (take' (n-1) xs)
 
+-- reverse 
+reverse' :: [a] -> [a]
+reverse' [] = []
+reverse' (x:xs) = reverse' xs ++ [x]
+
 
 -- repeat returns an infinite list 
 repeat' :: a -> [a]
@@ -27,6 +33,7 @@ repeat' x = x : (repeat' x)
 
 
 zip' :: [a] -> [b] -> [(a, b)]
+-- truncates the longer list
 zip' _ [] = []
 zip' [] _ = [] 
 zip' (x:xs) (y:ys) = (x,y) : (zip' xs ys)

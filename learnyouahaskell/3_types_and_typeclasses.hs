@@ -1,5 +1,3 @@
-
-
 {-
     Types 
 
@@ -43,6 +41,7 @@
         * Show: ~
             * can be represented as strings 
         * Read: 
+            * read :: (Read a) => String -> a
             * takes a string and returns a type 
             read "True" || False    -- True
         * Enum: 

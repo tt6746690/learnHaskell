@@ -6,9 +6,7 @@
 + [CS240 functional system](http://www.scs.stanford.edu/16wi-cs240h/) 
 + [data61](https://github.com/data61/fp-course) 
 
-
 --- 
-
 
 + [hoogle](https://www.haskell.org/hoogle/)
 + [haskell libs](https://downloads.haskell.org/~ghc/latest/docs/html/libraries/)

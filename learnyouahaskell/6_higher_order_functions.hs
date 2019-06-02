@@ -24,22 +24,23 @@ compareWithHundred x = compare 100 x
 compareWithHundred :: (Num a, Ord a) => a -> Ordering  
 compareWithHundred = compare 100  
 
--- infix functions can be partially applied by using *sections
+-- infix functions can be partially applied by using `sections`
 --      section an infix function, surround it with parentheses and 
 --      only supply a parameter on one side 
 divideByTen :: (Floating a) => a -> a  
 divideByTen = (/10)  
+-- `(/10) 200` same as `200 / 10`
 
 -- edge case: (-4)
 --      * meant for representing negative numbers 
 --      * use (subtract 4) instead
-
 isUpperAlphanum :: Char -> Bool  
 isUpperAlphanum = (`elem` ['A'..'Z'])  
 
 
 
 -- Higher Order Function 
+-- `->` is right associative
 applyTwice :: (a -> a) -> a -> a  
 applyTwice f x = f (f x)  
 
@@ -81,6 +82,7 @@ filter' p (x:xs)
     | p x       = x : filter' p xs  
     | otherwise = filter' p xs  
 
+-- lazy infinite list
 largestDivisible :: (Integral a) => a  
 largestDivisible = head (filter p [100000,99999..])  
     where p x = x `mod` 3829 == 0  
@@ -104,10 +106,9 @@ numLongChain = length (filter isLong (map chain [1..100]))
     where isLong xs = (length xs) > 15
 
 
-
-
 -- Lambdas 
 --      * `\args... -> body` 
+--      * pattern matching allowed in lambda args, but 1 case only
 
 
 numLongChain' :: Int 
@@ -131,9 +132,11 @@ flip''' f = \x y -> f y x
         * can be used to implement any function that traverse the list once
 
     `foldl`: left fold   (\acc x -> ...)
+        * `x` starts from beginning of the list
         * dont work on infinite list
     `foldr`: right fold  (\x acc -> ...)
-        * maybe more efficient for building up list (inside lambda)
+        * `x` starts from right hand side of the list
+        * maybe more efficient for building up list 
         * works on infinite lists, since always read beginning of list
 
     `foldl1` and `foldr1` 
@@ -148,10 +151,11 @@ sum' xs = foldl (\acc x -> acc + x) 0 xs
 
 sum'' :: (Num a) => [a] -> a
 sum'' = foldl (+) 0
+-- \xs -> foldl (+) 0 xs
 
 sum''' :: (Num a) => [a] -> a
 sum''' = foldl1 (+)
-
+-- \(x:xs) -> foldl (+) x xs
 
 
 elem' :: (Eq a) => a -> [a] -> Bool  
@@ -186,10 +190,17 @@ map'' f xs = foldr (\x acc -> f x : acc) [] xs
 
 {-
     Function application with `$`
-
-        - chain functions without using parentheses to control evaluation order
-        - Lowest precedence  (vs highest precedence for ' ')
-        - Left associative   (vs right associative for ' ')
+        * application 
+            * remove func application parenthesis
+                * (f (g x))  <=> f $ g x
+            * chain functions without adding parentheses to control eval order
+            * can represent function application as a function 
+        * Lowest precedence  
+            * vs highest precedence for ' '
+        * Right associative vs left associative for ' '
+            * f $ g x   <=>  (f (g x))
+            * f x y       <=> ((f x) y)
+        * can be viewed as 'parentehsis to end of expression'
             sqrt (3 + 4 + 5)    <=>     sqrt $ 3 + 4 + 5
         - can be treated as a lambda ...
             map ($ 3) [(4+), (10*), sqrt]
@@ -197,7 +208,6 @@ map'' f xs = foldr (\x acc -> f x : acc) [] xs
 
 ($) :: (a -> b) -> a -> b  
 f $ x = f x  
-
 
 
 {-
