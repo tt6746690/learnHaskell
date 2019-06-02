@@ -1,11 +1,18 @@
 {- http://learnyouahaskell.com/starting-out -}
 
+{-
+    functions
+        - spaces: function application 
+        - app has highest precedence
+-}
+
 double x = x + x 
 
--- if is an expression
+-- if is an expression, i.e. always return a value
+--      as `else` is always mandatory
 doubleSmall x = if x > 100
     then x 
-    else x * 2  -- else mandatory
+    else x * 2
 
 -- convention to use func_name' to denote 
 --      1. strict, i.e. non-lazy, version of function 
@@ -22,6 +29,7 @@ foo = "bar"
 numbers = [0,1,2,3,4,5]
 
 -- cons operator  : 
+--      - more efficient than concatenation `++`
 aSmallCat = 'A':" small cat"
 
 -- indexing operator !! 
@@ -35,6 +43,7 @@ aRange = [1..23]
 oddNumbers = [2,4..20] 
 
 -- a infinite list 
+--      lazily evaluates only first 24 elements
 first24multipliesof13 = take 24 [13,26..]
 
 -- cycle: turns list into an infinite list of repeating list 
@@ -42,7 +51,7 @@ first24multipliesof13 = take 24 [13,26..]
 
 -- List comprehension
 --  * filtering by predicates
---  * draw from multiple lists
+--  * draw from multiple lists, all combinations
 oddNumbers' = [x*2 | x <- [1..10], x*2 >= 12]
 -- [12,14,16,18,20]
 combinations = [x+y | x <- [1,2,3], y <- [10,20,30]]
@@ -55,6 +64,7 @@ wordCombinations = [a ++ " " ++ n | a <- adjectives, n <- nouns]
 
 
 -- lengths 
+--      `_`: unused variable name
 length' xs = sum [1 | _ <- xs]
 -- remove non uppercases 
 removeNonUppercase st = [ c | c <- st, c `elem` ['A'..'Z']]   
@@ -66,4 +76,4 @@ removeNonUppercase st = [ c | c <- st, c `elem` ['A'..'Z']]
 -- (fst snd)
 -- zip List List
 
- rightTriangles = [ (a,b,c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2] 
+rightTriangles = [ (a,b,c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2] 
